@@ -1,5 +1,5 @@
 const api_url = "https://api.openai.com/v1/chat/completions";
-const api_key = "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";
+const api_key = "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";
 
 let prompt = document.getElementById("prompt");
 let chatcontainer = document.querySelector(".chat-container");
