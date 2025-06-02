@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Chat Bot with Image Input</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="chat-container">
+    <div class="user-chat-box"></div>
+    <div class="ai-chat-box">
+      <img src="./Image/ai.webp" width="50" alt="" id="aiImage" />
+      <div class="ai-chat-area">Hello! How can I help you today?</div>
+    </div>
+  </div>
+
+  <div class="prompt-area">
+    <input type="text" id="prompt" placeholder="Message..." />
+    <button id="image"><img src="./Image/gallary.png" alt="Pick Image" /></button>
+    <button id="submit"><img src="./Image/up-arrow.png" alt="Send" /></button>
+    <!-- Hidden file input -->
+    <input type="file" id="imageInput" accept="image/*" style="display:none" />
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
