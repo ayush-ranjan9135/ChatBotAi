@@ -2,54 +2,34 @@
 
 > A modern, elegant, and secure AI chatbot powered by Google's Gemini 2.5 Flash API, featuring a premium glassmorphism interface and seamless text/image multi-modal capabilities. 
 
-![UI Demo](./Image/UI-Preview.png) <!-- Update with an actual preview image path if you have one! -->
+**🔴 Live Demo:** [https://chat-bot-ai-lime.vercel.app/](https://chat-bot-ai-lime.vercel.app/)
+
+![UI Demo](./Image/UI-Preview.png) 
 
 ## ✨ Features
 
 - **🧠 Advanced AI Engine:** Powered by Google's cutting-edge Gemini 2.5 Flash model for fast, intelligent responses.
 - **🖼️ Multi-modal Input:** Ask questions with just text, or upload an image and ask the AI to analyze it!
-- **📸 Image Staging:** See a preview of your selected image right above the input box before you send it.
+- **📸 Image Staging:** See a preview of your selected image right above the input box before you send it along with a text prompt.
 - **💎 Premium Glassmorphism UI:** A sleek, modern dark-mode aesthetic with frosted glass effects, smooth gradients, and subtle animations. 
-- **📝 Markdown Support:** AI responses featuring bolding, lists, and code blocks are rendered beautifully via `marked.js`.
-- **⚡ Secure Serverless Backend:** API keys are kept safe and hidden from the frontend using a Vercel Serverless Function (`/api/chat`).
-- **💻 Local Dev Fallback:** Smart auto-fallback mechanism allows you to test the app locally without needing to spin up the Vercel CLI!
+- **📝 Markdown Support:** AI responses featuring bolding, lists, and code blocks are rendered beautifully via `marked.js` rather than raw markdown syntax.
+- **⚡ Secure Serverless Backend:** API keys are kept safe and hidden from the frontend using a robust Vercel Serverless Function (`/api/chat`).
+- **📱 Fully Responsive:** The UI seamlessly scales down to look perfect on mobile devices.
 
 ## 🚀 Tech Stack
 
 - **Frontend:** HTML5, Vanilla CSS3 (Glassmorphism), Vanilla JavaScript, `marked.js`
 - **Backend:** Node.js (Vercel Serverless Functions)
-- **AI API:** Google Generative AI (Gemini)
+- **AI API:** Google Generative AI (Gemini 2.5 Flash)
+- **Hosting:** Vercel
 
-## 🛠️ Installation & Local Setup
+## 📬 Contact & Connect
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/ChatBotAi.git
-   cd ChatBotAi
-   ```
+Hi, I'm **Ayush Ranjan**! 👋 Feel free to reach out to me below if you have any questions or want to collaborate:
 
-2. **Run Locally:**
-   Because of the built-in local fallback, you can run this right out of the box using any local server!
-   * Using Python: `python -m http.server 8000`
-   * Using VS Code: Click "Go Live" with the LiveServer extension.
-
-3. **Open in Browser:**
-   Navigate to `http://localhost:8000` (or whatever port your server provides).
-
-## 🌐 Deploying to Vercel (Production)
-
-To deploy this securely so your API key isn't exposed to the public:
-
-1. Create a free account on [Vercel](https://vercel.com/).
-2. Push your code to a GitHub repository.
-3. Import your project into Vercel.
-4. Add your Gemini API Key in the **Environment Variables** section:
-   - **Key:** `GEMINI_API_KEY`
-   - **Value:** `your_actual_api_key_here`
-5. Deploy! Vercel will automatically host the frontend and convert `/api/chat.js` into a secure serverless endpoint.
-
-## 🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/yourusername/ChatBotAi/issues).
+- **📧 Email:** [ayushranjan9531@gmail.com](mailto:ayushranjan9531@gmail.com)
+- **🐙 GitHub:** [ayush-ranjan9135](https://github.com/ayush-ranjan9135)
+- **💼 LinkedIn:** [Ayush Ranjan](https://www.linkedin.com/in/ayush-ranjan-9135d3/)
 
 ## 📄 License
 This project is open-source and available under the [MIT License](LICENSE).
