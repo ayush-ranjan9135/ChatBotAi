@@ -1,16 +1,22 @@
-const api_url = "https://api.openai.com/v1/chat/completions";
-const api_key = "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";
+const vercel_api_url = "/api/chat";
+const fallback_gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+const fallback_api_key = "AIzaSyCexe_rPnjs_d7Dv6UCf0BEWWYShA7X0uE";
 
 let prompt = document.getElementById("prompt");
 let chatcontainer = document.querySelector(".chat-container");
 let submitBtn = document.getElementById("submit");
 let imageBtn = document.getElementById("image");
 let imageInput = document.getElementById("imageInput");
+let imagePreviewContainer = document.getElementById("image-preview-container");
+let stagedImage = document.getElementById("staged-image");
+let removeImageBtn = document.getElementById("remove-image-btn");
+let currentStagedFile = null;
 
 function createChatBox(html, classes) {
   let div = document.createElement("div");
   div.innerHTML = html;
-  div.classList.add(classes);
+  div.className = classes;
+  div.classList.add("animate-entry");
   return div;
 }
 
@@ -27,48 +33,68 @@ function fileToBase64(file) {
 async function generateResponse(userMessage, aiChatBox, base64Image = null) {
   let text = aiChatBox.querySelector(".ai-chat-area");
 
-  // Build messages array for API
-  let messages = [];
-
-  if (base64Image) {
-    messages.push({
-      role: "user",
-      content: [
-        { type: "text", text: userMessage || "Please analyze this image." },
-        { type: "image_url", image_url: { url: base64Image } }
-      ],
-    });
-  } else {
-    messages.push({
-      role: "user",
-      content: userMessage,
-    });
-  }
-
   let requestBody = {
-    model: "gpt-4o-mini",
-    messages: messages,
-    max_tokens: 150,
+    messages: userMessage ? [{ content: userMessage }] : [],
+    base64Image: base64Image
   };
 
   try {
-    let response = await fetch(api_url, {
+    // Attempt to use the Vercel Serverless Function first (Secure for production)
+    let response = await fetch(vercel_api_url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${api_key}`,
       },
       body: JSON.stringify(requestBody),
     });
+
+    // If local development (like LiveServer or Python HTTP server), this will fail with 404/405/501
+    if (!response.ok && (response.status === 405 || response.status === 404 || response.status === 501)) {
+      console.warn("Vercel Serverless Function not found. Falling back to direct Gemini API call for local testing.");
+      
+      // Rebuild payload for Gemini direct
+      let parts = [];
+      if (userMessage) parts.push({ text: userMessage });
+      if (base64Image) {
+        const splitData = base64Image.split(',');
+        parts.push({
+          inlineData: { data: splitData[1], mimeType: splitData[0].match(/:(.*?);/)[1] }
+        });
+      }
+      if (parts.length === 0) parts.push({ text: "Please analyze this image." });
+
+      const geminiBody = { contents: [{ role: "user", parts: parts }] };
+
+      response = await fetch(fallback_gemini_url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": fallback_api_key,
+        },
+        body: JSON.stringify(geminiBody),
+      });
+
+      let data = await response.json();
+      if (data.error) {
+        text.innerHTML = `⚠️ Error: ${data.error.message}`;
+        return;
+      }
+      
+      let apiResponse = data.candidates[0].content.parts[0].text.trim();
+      text.innerHTML = marked.parse(apiResponse);
+      return; 
+    }
+
+    // Process Vercel API Response
     let data = await response.json();
 
     if (data.error) {
-      text.innerHTML = `⚠️ Error: ${data.error.message}`;
+      text.innerHTML = `⚠️ Error: ${data.error.message || "Failed to fetch response."}`;
       return;
     }
 
-    let apiResponse = data.choices[0].message.content.trim();
-    text.innerHTML = apiResponse;
+    let apiResponse = data.text;
+    text.innerHTML = apiResponse ? marked.parse(apiResponse) : "No format response from server.";
   } catch (error) {
     console.error(error);
     text.innerHTML = "⚠️ Error fetching response.";
@@ -134,23 +160,44 @@ imageBtn.addEventListener("click", () => {
 });
 
 // When user selects an image file
-imageInput.addEventListener("change", () => {
+imageInput.addEventListener("change", async () => {
   if (imageInput.files.length > 0) {
-    let file = imageInput.files[0];
-    handleChatResponse(prompt.value.trim(), file);
+    currentStagedFile = imageInput.files[0];
+    let base64 = await fileToBase64(currentStagedFile);
+    stagedImage.src = base64;
+    imagePreviewContainer.style.display = "flex";
   }
 });
 
+// Remove staged image
+removeImageBtn.addEventListener("click", () => {
+  currentStagedFile = null;
+  imageInput.value = "";
+  imagePreviewContainer.style.display = "none";
+  stagedImage.src = "";
+});
+
+// Send Chat Functionality
+function triggerSend() {
+  let userText = prompt.value.trim();
+  if (userText !== "" || currentStagedFile) {
+    handleChatResponse(userText, currentStagedFile);
+    // Cleanup staged image after send
+    currentStagedFile = null;
+    imageInput.value = "";
+    imagePreviewContainer.style.display = "none";
+    stagedImage.src = "";
+  }
+}
+
 // Listen for Enter key press inside input
 prompt.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && prompt.value.trim() !== "") {
-    handleChatResponse(prompt.value.trim());
+  if (e.key === "Enter") {
+    triggerSend();
   }
 });
 
 // Listen for click on up-arrow button
 submitBtn.addEventListener("click", () => {
-  if (prompt.value.trim() !== "") {
-    handleChatResponse(prompt.value.trim());
-  }
+  triggerSend();
 });

@@ -16,13 +16,20 @@
   </div>
 
   <div class="prompt-area">
-    <input type="text" id="prompt" placeholder="Message..." />
-    <button id="image"><img src="./Image/gallary.png" alt="Pick Image" /></button>
-    <button id="submit"><img src="./Image/up-arrow.png" alt="Send" /></button>
-    <!-- Hidden file input -->
-    <input type="file" id="imageInput" accept="image/*" style="display:none" />
+    <div id="image-preview-container" style="display: none;">
+      <img id="staged-image" src="" alt="Staged Image" />
+      <button id="remove-image-btn" class="icon-btn">&times;</button>
+    </div>
+    <div class="input-wrapper">
+      <input type="text" id="prompt" placeholder="Message..." />
+      <button id="image" class="icon-btn"><img src="./Image/gallary.png" alt="Pick Image" /></button>
+      <button id="submit" class="icon-btn primary"><img src="./Image/up-arrow.png" alt="Send" /></button>
+      <!-- Hidden file input -->
+      <input type="file" id="imageInput" accept="image/*" style="display:none" />
+    </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

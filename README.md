@@ -1,135 +1,55 @@
-<h1 align="center">🤖 ChatBotAi</h1>
+# 🤖 ChatBot AI with Image Input
 
-<p align="center">
-  <b>AI-Powered Conversational Chatbot Application</b><br>
-  Intelligent • Scalable • Real-Time Interaction
-</p>
+> A modern, elegant, and secure AI chatbot powered by Google's Gemini 2.5 Flash API, featuring a premium glassmorphism interface and seamless text/image multi-modal capabilities. 
 
-<hr>
+![UI Demo](./Image/UI-Preview.png) <!-- Update with an actual preview image path if you have one! -->
 
-<h2>🚀 Project Overview</h2>
+## ✨ Features
 
-<p>
-ChatBotAi is an intelligent chatbot application designed to provide 
-real-time conversational responses using AI-based APIs.
-</p>
+- **🧠 Advanced AI Engine:** Powered by Google's cutting-edge Gemini 2.5 Flash model for fast, intelligent responses.
+- **🖼️ Multi-modal Input:** Ask questions with just text, or upload an image and ask the AI to analyze it!
+- **📸 Image Staging:** See a preview of your selected image right above the input box before you send it.
+- **💎 Premium Glassmorphism UI:** A sleek, modern dark-mode aesthetic with frosted glass effects, smooth gradients, and subtle animations. 
+- **📝 Markdown Support:** AI responses featuring bolding, lists, and code blocks are rendered beautifully via `marked.js`.
+- **⚡ Secure Serverless Backend:** API keys are kept safe and hidden from the frontend using a Vercel Serverless Function (`/api/chat`).
+- **💻 Local Dev Fallback:** Smart auto-fallback mechanism allows you to test the app locally without needing to spin up the Vercel CLI!
 
-<p>
-The system captures user input, sends it to an AI processing engine,
-and displays context-aware responses in a smooth and interactive interface.
-</p>
+## 🚀 Tech Stack
 
-<p>
-This project demonstrates API integration, asynchronous communication,
-and modern application architecture principles.
-</p>
+- **Frontend:** HTML5, Vanilla CSS3 (Glassmorphism), Vanilla JavaScript, `marked.js`
+- **Backend:** Node.js (Vercel Serverless Functions)
+- **AI API:** Google Generative AI (Gemini)
 
-<hr>
+## 🛠️ Installation & Local Setup
 
-<h2>✨ Key Features</h2>
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/ChatBotAi.git
+   cd ChatBotAi
+   ```
 
-<ul>
-  <li>Real-time AI Conversations</li>
-  <li>API Integration</li>
-  <li>Responsive User Interface</li>
-  <li>Scalable Backend Communication</li>
-  <li>Error Handling & Input Validation</li>
-  <li>Clean and Modular Code Structure</li>
-</ul>
+2. **Run Locally:**
+   Because of the built-in local fallback, you can run this right out of the box using any local server!
+   * Using Python: `python -m http.server 8000`
+   * Using VS Code: Click "Go Live" with the LiveServer extension.
 
-<hr>
+3. **Open in Browser:**
+   Navigate to `http://localhost:8000` (or whatever port your server provides).
 
-<h2>🏗️ System Architecture</h2>
+## 🌐 Deploying to Vercel (Production)
 
-<pre>
-        ┌────────────────────┐
-        │   User Interface   │
-        │  (Android/Web UI)  │
-        └─────────┬──────────┘
-                  │
-                  ▼
-        ┌────────────────────┐
-        │  Application Layer │
-        │ (Business Logic)   │
-        └─────────┬──────────┘
-                  │
-                  ▼
-        ┌────────────────────┐
-        │   AI API Service   │
-        │ (External AI Model)│
-        └─────────┬──────────┘
-                  │
-                  ▼
-        ┌────────────────────┐
-        │  Response Handling │
-        │  & Display Layer   │
-        └────────────────────┘
-</pre>
+To deploy this securely so your API key isn't exposed to the public:
 
-<h4>Architecture Flow:</h4>
-<ul>
-  <li>User sends a message through UI</li>
-  <li>Application layer processes request</li>
-  <li>Request sent to AI API</li>
-  <li>AI generates response</li>
-  <li>Response displayed to user</li>
-</ul>
+1. Create a free account on [Vercel](https://vercel.com/).
+2. Push your code to a GitHub repository.
+3. Import your project into Vercel.
+4. Add your Gemini API Key in the **Environment Variables** section:
+   - **Key:** `GEMINI_API_KEY`
+   - **Value:** `your_actual_api_key_here`
+5. Deploy! Vercel will automatically host the frontend and convert `/api/chat.js` into a secure serverless endpoint.
 
-<hr>
+## 🤝 Contributing
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/yourusername/ChatBotAi/issues).
 
-<h2>🛠️ Tech Stack</h2>
-
-<ul>
-  <li><b>Frontend:</b> Android / Web (UI)</li>
-  <li><b>Backend:</b> REST API Integration</li>
-  <li><b>AI Engine:</b> External AI Model API</li>
-  <li><b>Language:</b> Java / JavaScript / Kotlin (based on implementation)</li>
-</ul>
-
-<hr>
-
-<h2>🔐 Security & Performance</h2>
-
-<ul>
-  <li>Secure API Communication</li>
-  <li>Asynchronous Network Calls</li>
-  <li>Efficient Error Handling</li>
-  <li>Optimized Response Rendering</li>
-</ul>
-
-<hr>
-
-<h2>📈 Future Enhancements</h2>
-
-<ul>
-  <li>Chat History Storage</li>
-  <li>User Authentication</li>
-  <li>Voice-to-Text Integration</li>
-  <li>Multi-language Support</li>
-  <li>Context Memory Optimization</li>
-</ul>
-
-<hr>
-
-<h2>📌 Installation</h2>
-
-<ol>
-  <li>Clone the repository</li>
-  <li>Configure API Key</li>
-  <li>Build & Run the application</li>
-</ol>
-
-<hr>
-
-<h2>👨‍💻 Developed By</h2>
-
-<p>
-<b>Ayush Ranjan</b><br>
-Software Developer | AI Enthusiast | Android Developer
-</p>
-
-<hr>
-
-<p align="center">
-⭐ If you like this project, don't forget to star the repository!
-</p>
+## 📄 License
+This project is open-source and available under the [MIT License](LICENSE).
